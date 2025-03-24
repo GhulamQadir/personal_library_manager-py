@@ -1,0 +1,23 @@
+{
+    "Fsfd": {
+        "title": "Fsfd",
+        "author": "Dsd",
+        "publishedYear": 4234,
+        "genre": "Fgfdg",
+        "readStatus": false
+    },
+    "Fsdfdsfsdfsdfsdfsfsfsfdf": {
+        "title": "Fsdfdsfsdfsdfsdfsfsfsfdf",
+        "author": "Fsdfsd",
+        "publishedYear": 44444444,
+        "genre": "Re",
+        "readStatus": true
+    },
+    "New Book": {
+        "title": "New Book",
+        "author": "Hello",
+        "publishedYear": 423423,
+        "genre": "Sfsf",
+        "readStatus": false
+    }
+}

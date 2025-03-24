@@ -1,4 +1,39 @@
+import json
+
 booksDict:dict={}  # BOOKS DICTIONARY(LIBRARY)
+
+fileName:str = "library.txt"
+def loadData():
+    #   Loads a dictionary from a JSON file.
+    try:
+        with open("library.txt", 'r') as f:
+            data = json.load(f)
+            print(f"Dictionary loaded from {fileName}")
+            print(data)
+            global booksDict
+            booksDict=data
+        return data
+    except FileNotFoundError:
+        print(f"File not found: {fileName}")
+    except json.JSONDecodeError:
+        print(f"Error decoding JSON in {fileName}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+loadData()
+
+
+
+def saveDataToFile():
+    #   Saves a dictionary to a JSON file.
+    try:
+        with open(fileName, 'w') as f:
+            print(booksDict)
+            json.dump(booksDict, f, indent=4)  # indent for better readability
+            print(f"Dictionary saved to {fileName}")
+    except Exception as e:
+        print(f"Error saving dictionary: {e}")
+
 
 # add book function
 def addBook():
@@ -101,6 +136,7 @@ def libraryManager():
             elif choice==5:
                 displayStatistics(booksDict)
             elif choice==6:
+                saveDataToFile()
                 break
         except ValueError as e:
             print(f"Invalid value: {e}")
