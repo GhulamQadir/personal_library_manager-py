@@ -1,25 +1,30 @@
 import json
 
 booksDict:dict={}  # BOOKS DICTIONARY(LIBRARY)
-
 fileName:str = "library.txt"
+
+
 def loadData():
     #   Loads a dictionary from a JSON file.
     try:
+        global booksDict
         with open("library.txt", 'r') as f:
-            data = json.load(f)
-            print(f"Dictionary loaded from {fileName}")
-            print(data)
-            global booksDict
-            booksDict=data
-        return data
+            fileContent= f.read().strip()
+            
+            if not fileContent:
+                booksDict={}
+            else:
+                data = json.loads(fileContent)
+                print(f"Dictionary loaded from {fileName}")
+                print(data)
+                booksDict=data
     except FileNotFoundError:
-        print(f"File not found: {fileName}")
+        return
     except json.JSONDecodeError:
-        print(f"Error decoding JSON in {fileName}")
+        booksDict={}
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
+        booksDict={}
 loadData()
 
 
@@ -30,7 +35,6 @@ def saveDataToFile():
         with open(fileName, 'w') as f:
             print(booksDict)
             json.dump(booksDict, f, indent=4)  # indent for better readability
-            print(f"Dictionary saved to {fileName}")
     except Exception as e:
         print(f"Error saving dictionary: {e}")
 
@@ -51,6 +55,7 @@ def addBook():
         
     global booksDict
     booksDict[title] = {"title":title,"author":author,"publishedYear":pubYear,"genre":genre,"readStatus":readStatus}
+    saveDataToFile()
  
  
 # remove specific book
@@ -64,9 +69,11 @@ def removeBook():
             tempData = booksDict.copy()
             del tempData[bookToRemove]
             booksDict=tempData
-            print(booksDict)
+            saveDataToFile()
+            print("Book removed from the library")
         else:
             print("Book not found!")
+
 
 
 # search for a specific book
@@ -82,6 +89,7 @@ def searchBook():
 {title} by {author} ({pubYear}) - {genre} - {readStatus}""")
         else:
             print("Book not found!")
+
 
 
 # display all books
